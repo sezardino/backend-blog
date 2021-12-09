@@ -4,6 +4,7 @@ import { inject, injectable } from "inversify";
 import "reflect-metadata";
 
 import { TYPES } from "./container/container.types";
+import { IExceptionFilter } from "./errors/exceptonFilter.interface";
 import { ILogger } from "./logger/logger.interface";
 
 @injectable()
@@ -12,7 +13,10 @@ export class App {
   server: Server;
   port: number;
 
-  constructor(@inject(TYPES.Logger) private logger: ILogger) {
+  constructor(
+    @inject(TYPES.Logger) private logger: ILogger,
+    @inject(TYPES.ExceptionFilter) private exceptionFilter: IExceptionFilter
+  ) {
     this.app = express();
     this.port = 1234;
   }
@@ -26,7 +30,7 @@ export class App {
   }
 
   private useExceptions(): void {
-    this.logger.info("no exceptions");
+    this.app.use(this.exceptionFilter.catch.bind(this.exceptionFilter));
   }
 
   public init(): void {
