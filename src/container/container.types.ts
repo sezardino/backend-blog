@@ -5,4 +5,6 @@ export const TYPES = {
   UserController: Symbol.for("UserController"),
   PostController: Symbol.for("PostController"),
   CommentController: Symbol.for("CommentController"),
+  MongoService: Symbol.for("MongoService"),
+  ConfigService: Symbol.for("ConfigService"),
 };

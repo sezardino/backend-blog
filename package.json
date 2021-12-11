@@ -15,6 +15,7 @@
   "license": "ISC",
   "devDependencies": {
     "@types/express": "^4.17.13",
+    "@types/node": "^16.11.12",
     "@typescript-eslint/eslint-plugin": "^5.6.0",
     "@typescript-eslint/parser": "^5.6.0",
     "body-parser": "^1.19.0",
@@ -36,6 +37,8 @@
     "{.ts}": "lint:fix"
   },
   "dependencies": {
+    "mongodb": "^4.2.1",
+    "mongoose": "^6.1.1",
     "reflect-metadata": "^0.1.13"
   }
 }
