@@ -10,12 +10,14 @@ import { ExceptionFilter } from "../errors/exceptionFilter";
 import { IUserController } from "../user/user.controller.interface";
 import { IPostController } from "../post/post.controller.interface";
 import { PostController } from "../post/post.controller";
+import { CommentController } from "../comment/comment.controller";
 
 export const appBinds = new ContainerModule((bind: interfaces.Bind) => {
   bind<ILogger>(TYPES.Logger).to(LoggerService).inSingletonScope();
   bind<IExceptionFilter>(TYPES.ExceptionFilter).to(ExceptionFilter);
   bind<IUserController>(TYPES.UserController).to(UserController);
   bind<IPostController>(TYPES.PostController).to(PostController);
+  bind<IPostController>(TYPES.CommentController).to(CommentController)
   bind<App>(TYPES.App).to(App);
 });
 

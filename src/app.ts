@@ -8,6 +8,7 @@ import { IExceptionFilter } from "./errors/exceptonFilter.interface";
 import { ILogger } from "./logger/logger.interface";
 import { PostController } from "./post/post.controller";
 import { UserController } from "./user/user.controller";
+import { CommentController } from './comment/comment.controller';
 
 @injectable()
 export class App {
@@ -19,7 +20,8 @@ export class App {
     @inject(TYPES.Logger) private logger: ILogger,
     @inject(TYPES.ExceptionFilter) private exceptionFilter: IExceptionFilter,
     @inject(TYPES.UserController) private userController: UserController,
-    @inject(TYPES.PostController) private postController: PostController
+    @inject(TYPES.PostController) private postController: PostController,
+    @inject(TYPES.CommentController) private commentController: CommentController
   ) {
     this.app = express();
     this.port = 1234;
@@ -32,6 +34,7 @@ export class App {
   private useRoutes(): void {
     this.app.use("/user", this.userController.router);
     this.app.use("/post", this.postController.router);
+    this.app.use("/comment", this.commentController.router);
   }
 
   private useExceptions(): void {
