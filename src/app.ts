@@ -6,6 +6,7 @@ import "reflect-metadata";
 import { TYPES } from "./container/container.types";
 import { IExceptionFilter } from "./errors/exceptonFilter.interface";
 import { ILogger } from "./logger/logger.interface";
+import { UserController } from "./user/user.controller";
 
 @injectable()
 export class App {
@@ -15,7 +16,8 @@ export class App {
 
   constructor(
     @inject(TYPES.Logger) private logger: ILogger,
-    @inject(TYPES.ExceptionFilter) private exceptionFilter: IExceptionFilter
+    @inject(TYPES.ExceptionFilter) private exceptionFilter: IExceptionFilter,
+    @inject(TYPES.UserController) private userController: UserController
   ) {
     this.app = express();
     this.port = 1234;
@@ -26,7 +28,7 @@ export class App {
   }
 
   private useRoutes(): void {
-    this.logger.info("no routes");
+    this.app.use("/user", this.userController.router);
   }
 
   private useExceptions(): void {
