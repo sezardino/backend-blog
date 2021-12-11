@@ -8,13 +8,14 @@ import { App } from "../app";
 import { IExceptionFilter } from "../errors/exceptonFilter.interface";
 import { ExceptionFilter } from "../errors/exceptionFilter";
 import { IUserController } from "../user/user.controller.interface";
+import { IPostController } from "../post/post.controller.interface";
+import { PostController } from "../post/post.controller";
 
 export const appBinds = new ContainerModule((bind: interfaces.Bind) => {
-  bind<ILogger>(TYPES.Logger)
-    .to(LoggerService)
-    .inSingletonScope();
+  bind<ILogger>(TYPES.Logger).to(LoggerService).inSingletonScope();
   bind<IExceptionFilter>(TYPES.ExceptionFilter).to(ExceptionFilter);
   bind<IUserController>(TYPES.UserController).to(UserController);
+  bind<IPostController>(TYPES.PostController).to(PostController);
   bind<App>(TYPES.App).to(App);
 });
 
