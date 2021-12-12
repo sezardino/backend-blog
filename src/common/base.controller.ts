@@ -8,9 +8,11 @@ import { Router } from "express";
 @injectable()
 export abstract class BaseController {
   private readonly _router: Router;
+  protected logger: ILogger;
 
-  constructor(private logger: ILogger) {
+  constructor(logger: ILogger) {
     this._router = Router();
+    this.logger = logger;
   }
 
   get router(): Router {
