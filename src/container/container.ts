@@ -14,15 +14,18 @@ import { PostController } from "../post/post.controller";
 import { CommentController } from "../comment/comment.controller";
 import { MongoService } from "../database/mongo.service";
 import { ConfigService } from '../config/config.service';
+import { IUserService } from '../user/user.service.interface';
+import { UserService } from '../user/user.service';
 
 export const appBinds = new ContainerModule((bind: interfaces.Bind) => {
   bind<ILogger>(TYPES.Logger).to(LoggerService).inSingletonScope();
   bind<IConfigService>(TYPES.ConfigService).to(ConfigService).inSingletonScope();
+  bind<MongoService>(TYPES.MongoService).to(MongoService).inSingletonScope();
   bind<IExceptionFilter>(TYPES.ExceptionFilter).to(ExceptionFilter);
   bind<IUserController>(TYPES.UserController).to(UserController);
   bind<IPostController>(TYPES.PostController).to(PostController);
   bind<IPostController>(TYPES.CommentController).to(CommentController);
-  bind<MongoService>(TYPES.MongoService).to(MongoService).inSingletonScope();
+  bind<IUserService>(TYPES.UserService).to(UserService);
   bind<App>(TYPES.App).to(App);
 });
 
