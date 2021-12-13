@@ -1,3 +1,4 @@
+import { RouteGuard } from "./../middlewares/route-guard.middleware";
 import { inject, injectable } from "inversify";
 import "reflect-metadata";
 
@@ -17,25 +18,25 @@ export class PostController extends BaseController implements IPostController {
         method: "get",
         path: "/get",
         func: this.get,
-        middlewares: [],
+        middlewares: [new RouteGuard()],
       },
       {
         method: "patch",
         path: "/update",
         func: this.update,
-        middlewares: [],
+        middlewares: [new RouteGuard()],
       },
       {
         method: "post",
         path: "/create",
         func: this.create,
-        middlewares: [],
+        middlewares: [new RouteGuard()],
       },
       {
         method: "delete",
         path: "/delete",
         func: this.delete,
-        middlewares: [],
+        middlewares: [new RouteGuard()],
       },
     ]);
   }

@@ -1,3 +1,4 @@
+import { RouteGuard } from "./../middlewares/route-guard.middleware";
 import { inject, injectable } from "inversify";
 import "reflect-metadata";
 
@@ -8,7 +9,8 @@ import { BaseController } from "../common/base.controller";
 import { ICommentController } from "./comment.controller.interface";
 
 @injectable()
-export class CommentController extends BaseController implements ICommentController {
+export class CommentController extends BaseController
+  implements ICommentController {
   constructor(@inject(TYPES.Logger) logger: ILogger) {
     super(logger);
 
@@ -17,25 +19,25 @@ export class CommentController extends BaseController implements ICommentControl
         method: "get",
         path: "/get",
         func: this.get,
-        middlewares: [],
+        middlewares: [new RouteGuard()],
       },
       {
         method: "patch",
         path: "/update",
         func: this.update,
-        middlewares: [],
+        middlewares: [new RouteGuard()],
       },
       {
         method: "post",
         path: "/create",
         func: this.create,
-        middlewares: [],
+        middlewares: [new RouteGuard()],
       },
       {
         method: "delete",
         path: "/delete",
         func: this.delete,
-        middlewares: [],
+        middlewares: [new RouteGuard()],
       },
     ]);
   }
