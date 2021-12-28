@@ -1,5 +1,4 @@
 import { Schema, model, Document, Types } from "mongoose";
-import { CommentDocument } from "./comment";
 import { PostDocument } from "./post";
 
 export interface IUser {
@@ -7,7 +6,6 @@ export interface IUser {
   name: string;
   email: string;
   password: string;
-  comments: [CommentDocument["_id"]] | [];
   rating: number;
 }
 
@@ -19,7 +17,6 @@ export const UserSchema = new Schema<UserDocument>(
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    comments: [{ type: Types.ObjectId, ref: "Comment", default: [] }],
     rating: { type: Number, default: 0 },
   },
   { timestamps: true }

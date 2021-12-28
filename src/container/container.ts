@@ -11,7 +11,6 @@ import { ExceptionFilter } from "../errors/exceptionFilter";
 import { IUserController } from "../user/user.controller.interface";
 import { IPostController } from "../post/post.controller.interface";
 import { PostController } from "../post/post.controller";
-import { CommentController } from "../comment/comment.controller";
 import { MongoService } from "../database/mongo.service";
 import { ConfigService } from '../config/config.service';
 import { IUserService } from '../user/user.service.interface';
@@ -24,7 +23,6 @@ export const appBinds = new ContainerModule((bind: interfaces.Bind) => {
   bind<IExceptionFilter>(TYPES.ExceptionFilter).to(ExceptionFilter);
   bind<IUserController>(TYPES.UserController).to(UserController);
   bind<IPostController>(TYPES.PostController).to(PostController);
-  bind<IPostController>(TYPES.CommentController).to(CommentController);
   bind<IUserService>(TYPES.UserService).to(UserService);
   bind<App>(TYPES.App).to(App);
 });

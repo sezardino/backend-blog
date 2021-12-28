@@ -4,13 +4,10 @@ export const TYPES = {
   ExceptionFilter: Symbol.for("ExceptionFilter"),
   UserController: Symbol.for("UserController"),
   PostController: Symbol.for("PostController"),
-  CommentController: Symbol.for("CommentController"),
   MongoService: Symbol.for("MongoService"),
   ConfigService: Symbol.for("ConfigService"),
   UserService: Symbol.for("UserService"),
   UserRepository: Symbol.for("UserRepository"),
-  CommentService: Symbol.for("CommentService"),
-  CommentRepository: Symbol.for("CommentRepository"),
   PostService: Symbol.for("PostService"),
   PostRepository: Symbol.for("PostRepository"),
 };
