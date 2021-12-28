@@ -1,7 +1,8 @@
-import { MongoService } from './database/mongo.service';
+import { MongoService } from "./database/mongo.service";
 import express, { Express } from "express";
 import { Server } from "http";
 import { inject, injectable } from "inversify";
+import { json } from "body-parser";
 import "reflect-metadata";
 
 import { TYPES } from "./container/container.types";
@@ -21,14 +22,14 @@ export class App {
     @inject(TYPES.ExceptionFilter) private exceptionFilter: IExceptionFilter,
     @inject(TYPES.UserController) private userController: UserController,
     @inject(TYPES.PostController) private postController: PostController,
-    @inject(TYPES.MongoService) private mongoService: MongoService,
+    @inject(TYPES.MongoService) private mongoService: MongoService
   ) {
     this.app = express();
     this.port = 1234;
   }
 
   private useMiddleware(): void {
-    this.logger.info("no middlewares");
+    this.app.use(json());
   }
 
   private useRoutes(): void {

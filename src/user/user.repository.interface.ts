@@ -1,5 +1,7 @@
-import { UserLoginDto } from "./dto/user-login.dto";
+import { UserDocument } from "../database/models/user";
+import { User } from "./user.entity";
 
 export interface IUserRepository {
-  create: (data: UserLoginDto) => Promise<void>;
+  create: (user: User) => Promise<UserDocument>;
+  find: (email: string) => Promise<UserDocument | null>;
 }

@@ -1,21 +1,9 @@
 import { hash, compare } from "bcrypt";
 
-interface UserProps {
-  name: string;
-  email: string;
-  password: string;
-}
-
 export class User {
-  private _name: string;
-  private _email: string;
   private _password: string;
 
-  constructor(props: UserProps) {
-    this._name = props.name;
-    this._email = props.email;
-    this.setPassword(props.password);
-  }
+  constructor(private _name: string, private _email: string) {}
 
   get name(): string {
     return this._name;
@@ -29,8 +17,8 @@ export class User {
     return this._password;
   }
 
-  private async setPassword(password: string): Promise<void> {
-    await hash(password, 10);
+  async setPassword(password: string): Promise<string> {
+    return (this._password = await hash(password, 10));
   }
 
   static async comparePass(entered: string, hashed: string): Promise<boolean> {

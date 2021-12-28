@@ -15,6 +15,8 @@ import { MongoService } from "../database/mongo.service";
 import { ConfigService } from '../config/config.service';
 import { IUserService } from '../user/user.service.interface';
 import { UserService } from '../user/user.service';
+import { IUserRepository } from '../user/user.repository.interface';
+import { UserRepository } from '../user/user.repository';
 
 export const appBinds = new ContainerModule((bind: interfaces.Bind) => {
   bind<ILogger>(TYPES.Logger).to(LoggerService).inSingletonScope();
@@ -24,6 +26,7 @@ export const appBinds = new ContainerModule((bind: interfaces.Bind) => {
   bind<IUserController>(TYPES.UserController).to(UserController);
   bind<IPostController>(TYPES.PostController).to(PostController);
   bind<IUserService>(TYPES.UserService).to(UserService);
+  bind<IUserRepository>(TYPES.UserRepository).to(UserRepository);
   bind<App>(TYPES.App).to(App);
 });
 

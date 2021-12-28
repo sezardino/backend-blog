@@ -73,9 +73,11 @@ export class UserController extends BaseController implements IUserController {
       return res.status(401).send({ message: "User already exist" });
     }
 
+    const token = this.sign(req.body.email);
+
     return res
       .status(201)
-      .send({ message: "User create successfully", user: result });
+      .send({ message: "User create successfully", user: token });
   }
 
   async login(
@@ -93,7 +95,7 @@ export class UserController extends BaseController implements IUserController {
       return res.status(401).send({ message: "Wrong data" });
     }
 
-    return res.status(200).send({ message: "loged correctly" });
+    return res.status(200).send({ message: "logged correctly" });
   }
 
   info(req: Request, res: Response, next: NextFunction): void {
