@@ -95,7 +95,9 @@ export class UserController extends BaseController implements IUserController {
       return res.status(401).send({ message: "Wrong data" });
     }
 
-    return res.status(200).send({ message: "logged correctly" });
+    const token = await this.sign(req.body.email);
+
+    return res.status(200).send({ message: "logged correctly", token });
   }
 
   info(req: Request, res: Response, next: NextFunction): void {
