@@ -12,6 +12,7 @@ import { UserRegisterDto } from "./dto/user-register.dto";
 import { UserLoginDto } from "./dto/user-login.dto";
 import { IConfigService } from "../config/config.interface";
 import { RouteGuard } from "../middlewares/route-guard.middleware";
+import { UserDocument } from "../database/models/user";
 
 @injectable()
 export class UserController extends BaseController implements IUserController {
@@ -100,8 +101,17 @@ export class UserController extends BaseController implements IUserController {
     return res.status(200).send({ message: "logged correctly", token });
   }
 
-  info(req: Request, res: Response, next: NextFunction): void {
-    console.log(req.user);
-    res.send("info");
+  async info(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response<any, Record<string, any>>> {
+    const user = await this.userService.find(req.user);
+
+    if (!user) {
+      return res.status(401).send({ message: "Wrong data" });
+    }
+
+    return res.send({ name: user.name, email: user.email, posts: user.posts });
   }
 }
