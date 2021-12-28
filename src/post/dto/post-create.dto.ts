@@ -1,1 +1,3 @@
-export class PostCreateDto {}
+export interface PostCreateDto {
+  id: string;
+}

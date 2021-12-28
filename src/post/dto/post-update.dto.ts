@@ -1,1 +1,3 @@
-export class PostUpdateDto {}
+export interface PostUpdateDto {
+  id: string;
+}

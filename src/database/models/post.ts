@@ -3,7 +3,6 @@ import { UserDocument } from "./user";
 
 export interface IPost {
   author: UserDocument["_id"];
-  rating: number;
   content: string;
 }
 

@@ -1,1 +1,3 @@
-class PostDeleteDto {}
+export interface PostDeleteDto {
+  id: string;
+}
