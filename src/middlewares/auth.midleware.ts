@@ -7,6 +7,7 @@ export class AuthMiddleware implements IMiddleware {
   constructor(private secret: string) {}
 
   execute(req: Request, res: Response, next: NextFunction): void {
+    console.log(req.headers.authorization);
     if (req.headers.authorization) {
       verify(
         req.headers.authorization.split(" ")[1],

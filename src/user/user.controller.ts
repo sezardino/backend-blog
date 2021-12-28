@@ -11,7 +11,7 @@ import { IUserService } from "./user.service.interface";
 import { UserRegisterDto } from "./dto/user-register.dto";
 import { UserLoginDto } from "./dto/user-login.dto";
 import { IConfigService } from "../config/config.interface";
-import { AuthMiddleware } from "../middlewares/auth.midleware";
+import { RouteGuard } from "../middlewares/route-guard.middleware";
 
 @injectable()
 export class UserController extends BaseController implements IUserController {
@@ -26,19 +26,19 @@ export class UserController extends BaseController implements IUserController {
         method: "post",
         path: "/register",
         func: this.register,
-        middlewares: [new AuthMiddleware(this.configService.get("JWT_SECRET"))],
+        middlewares: [],
       },
       {
         method: "post",
         path: "/login",
         func: this.login,
-        middlewares: [new AuthMiddleware(this.configService.get("JWT_SECRET"))],
+        middlewares: [],
       },
       {
         method: "get",
         path: "/info",
         func: this.info,
-        middlewares: [new AuthMiddleware(this.configService.get("JWT_SECRET"))],
+        middlewares: [new RouteGuard()],
       },
     ]);
   }
@@ -101,6 +101,7 @@ export class UserController extends BaseController implements IUserController {
   }
 
   info(req: Request, res: Response, next: NextFunction): void {
+    console.log(req.user);
     res.send("info");
   }
 }

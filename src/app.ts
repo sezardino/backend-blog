@@ -10,6 +10,8 @@ import { IExceptionFilter } from "./errors/exceptonFilter.interface";
 import { ILogger } from "./logger/logger.interface";
 import { PostController } from "./post/post.controller";
 import { UserController } from "./user/user.controller";
+import { AuthMiddleware } from "./middlewares/auth.midleware";
+import { IConfigService } from "./config/config.interface";
 
 @injectable()
 export class App {
@@ -22,7 +24,8 @@ export class App {
     @inject(TYPES.ExceptionFilter) private exceptionFilter: IExceptionFilter,
     @inject(TYPES.UserController) private userController: UserController,
     @inject(TYPES.PostController) private postController: PostController,
-    @inject(TYPES.MongoService) private mongoService: MongoService
+    @inject(TYPES.MongoService) private mongoService: MongoService,
+    @inject(TYPES.ConfigService) private configService: IConfigService
   ) {
     this.app = express();
     this.port = 1234;
@@ -30,6 +33,10 @@ export class App {
 
   private useMiddleware(): void {
     this.app.use(json());
+    const authMiddleware = new AuthMiddleware(
+      this.configService.get("JWT_SECRET")
+    );
+    this.app.use(authMiddleware.execute.bind(authMiddleware));
   }
 
   private useRoutes(): void {
