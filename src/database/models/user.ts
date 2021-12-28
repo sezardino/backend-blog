@@ -6,7 +6,6 @@ export interface IUser {
   name: string;
   email: string;
   password: string;
-  rating: number;
 }
 
 export interface UserDocument extends IUser, Document {}
@@ -17,7 +16,6 @@ export const UserSchema = new Schema<UserDocument>(
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    rating: { type: Number, default: 0 },
   },
   { timestamps: true }
 );
