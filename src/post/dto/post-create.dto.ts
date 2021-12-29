@@ -1,3 +1,3 @@
 export interface PostCreateDto {
-  id: string;
+  content: string;
 }

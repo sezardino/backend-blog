@@ -7,10 +7,18 @@ import { TYPES } from "../container/container.types";
 import { ILogger } from "../logger/logger.interface";
 import { BaseController } from "../common/base.controller";
 import { IPostController } from "./post.controller.interface";
+import { IPostService } from "./post.service.interface";
+import { PostGetDto } from "./dto/post-get.dto";
+import { PostUpdateDto } from "./dto/post-update.dto";
+import { PostCreateDto } from "./dto/post-create.dto";
+import { PostDeleteDto } from "./dto/post-delete.dto";
 
 @injectable()
 export class PostController extends BaseController implements IPostController {
-  constructor(@inject(TYPES.Logger) logger: ILogger) {
+  constructor(
+    @inject(TYPES.Logger) logger: ILogger,
+    @inject(TYPES.PostService) private postService: IPostService
+  ) {
     super(logger);
 
     this.bindRoutes([
@@ -18,7 +26,7 @@ export class PostController extends BaseController implements IPostController {
         method: "get",
         path: "/get",
         func: this.get,
-        middlewares: [new RouteGuard()],
+        middlewares: [],
       },
       {
         method: "patch",
@@ -41,19 +49,33 @@ export class PostController extends BaseController implements IPostController {
     ]);
   }
 
-  get(req: Request, res: Response, next: NextFunction): void {
-    res.send("get");
+  async get(req: Request<{}, {}, PostGetDto>, res: Response, next: NextFunction): Promise<Response<any, Record<string, any>>> {
+    const neededPost = await this.postService.get(req.body);
+
+    if(!neededPost) {
+      return res.send({message:'Post not found'});
+    }
+
+    return res.send(neededPost);
   }
 
-  update(req: Request, res: Response, next: NextFunction): void {
+  async update(req: Request<{}, {}, PostUpdateDto>, res: Response, next: NextFunction): Promise<void> {
+    this.postService.update(req.body);
     res.send("update");
   }
 
-  create(req: Request, res: Response, next: NextFunction): void {
-    res.send("create");
+  async create(req: Request<{}, {}, PostCreateDto>, res: Response, next: NextFunction): Promise<Response<any, Record<string, any>>> {
+    const createdPost = await this.postService.create(req.body, req.user);
+
+    if(!createdPost) {
+      return res.send("User not found");
+    }
+
+    return res.send({createdPost});
   }
 
-  delete(req: Request, res: Response, next: NextFunction): void {
+  async delete(req: Request<{}, {}, PostDeleteDto>, res: Response, next: NextFunction): Promise<void> {
+    this.postService.delete(req.body);
     res.send("delete");
   }
 }

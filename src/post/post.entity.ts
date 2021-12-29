@@ -6,6 +6,6 @@ export class Post {
   }
 
   public get content(): string {
-    return this.content;
+    return this._content;
   }
 }

@@ -12,7 +12,6 @@ export class AuthMiddleware implements IMiddleware {
         req.headers.authorization.split(" ")[1],
         this.secret,
         (error, payload) => {
-          console.log(error);
           if (error) {
             next();
           } else if (payload) {

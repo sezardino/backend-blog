@@ -112,6 +112,6 @@ export class UserController extends BaseController implements IUserController {
       return res.status(401).send({ message: "Wrong data" });
     }
 
-    return res.send({ name: user.name, email: user.email, posts: user.posts });
+    return res.send({ name: user.name, email: user.email });
   }
 }
